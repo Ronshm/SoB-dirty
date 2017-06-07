@@ -9,13 +9,13 @@ def get_syscalls():
     counter = collections.Counter()
     arr = []
     cur_sys = []
-    with open("syscalls.txt", "r") as f:
+    with open("data/syscalls.txt", "r") as f:
         lines = f.readlines()
         for line in lines:
             line = line.strip('\n')
             cur_sys.append(line)
         counter.update(cur_sys)
-    with open("train/straceSamplesPos/output439.txt") as f:
+    with open("data/train/straceSamplesPos/output439.txt") as f:
         lines = f.readlines()
         for line in lines:
             if line == "\n":
@@ -30,7 +30,7 @@ def get_syscalls():
     counter.update(arr)
     print len(counter)
     # print len(counter)
-    with open("syscalls.txt", "w") as f:
+    with open("data/syscalls.txt", "w") as f:
         for key in counter.keys():
             f.write(key + "\n")
 
@@ -55,7 +55,7 @@ def get_syscalls():
 def create_sysc2index():
     # get_syscalls()
     arr = []
-    with open("syscalls.txt", "r") as f:
+    with open("data/syscalls.txt", "r") as f:
         lines = f.readlines()
     for line in lines:
         arr.append(line.strip("\n"))
@@ -64,9 +64,9 @@ def create_sysc2index():
 
 def create_data_type(data_base, d_sysc2index, data_type):
     new_data = []
-    for fname in os.listdir(data_base + '/straceSamples' + data_type):
+    for fname in os.listdir("data/" + data_base + '/straceSamples' + data_type):
         sysc = []
-        with open(data_base + "straceSamples" + data_type + "/" + fname) as f:
+        with open("data/" + data_base + "straceSamples" + data_type + "/" + fname) as f:
             lines = f.readlines()
             arr = []
             for line in lines:
@@ -85,9 +85,9 @@ def read_data(database, d_sysc2index):
     data = []
     cur_sysc = ""
     for lab in ["Pos", "Neg"]:
-        for fname in os.listdir(database + '/straceSamples' + lab):
+        for fname in os.listdir("data/" + database + '/straceSamples' + lab):
             sysc = []
-            with open(database + "/straceSamples" + lab + "/" + fname) as f:
+            with open("data/" + database + "/straceSamples" + lab + "/" + fname) as f:
                 lines = f.readlines()
                 for line in lines:
                     if line == "\n":
