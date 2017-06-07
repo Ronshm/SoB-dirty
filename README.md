@@ -11,6 +11,6 @@ Cyber notes:
 
   -How to use: 
      
-     The attacker.py should run on the attacker machine, victim.py should run on the metasploitable.
+   The attacker.py should run on the attacker machine, victim.py should run on the metasploitable.
 
   -To use the attacker you should install pymetasploit package (https://github.com/allfro/pymetasploit).
